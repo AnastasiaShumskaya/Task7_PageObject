@@ -2,13 +2,16 @@ package pageobjectsTask7;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginPage {
 
-    public WebElement Username;
-    public WebElement Password;
-    public WebElement SubmitButton;
+    private WebElement Username;
+    private WebElement Password;
+    private WebElement SubmitButton;
 
     private WebDriver driver;
 
@@ -16,11 +19,16 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
+
     public void load(String url) {
         this.driver.get(url);
     }
 
-    public void close() {
+    protected void setUp() {
+        this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+    protected void close() {
         this.driver.close();
     }
 
@@ -31,7 +39,7 @@ public class LoginPage {
     }
 
     public String getTitle() {
-        return this.driver.getTitle();
+        return driver.getTitle();
     }
 
 }

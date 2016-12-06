@@ -1,9 +1,6 @@
-package com.seleniumTask7.app;
+package com.selenium.task7.app;
 
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     public static void main( String[] args )

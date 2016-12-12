@@ -1,27 +1,26 @@
 package pageobjectsTask7;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 
 
 public class LoginPage {
 
-    private WebElement Username;
-    private WebElement Password;
-    private WebElement SubmitButton;
+    private static final By USERNAME = By.id("Username");
+    private static final By PASSWORD = By.id("Password");
+    private static final By SUBMIT_BUTTON = By.id("SubmitButton");
 
-    private WebDriver driver;
+    private WebDriver DRIVER;
 
     public LoginPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        this.DRIVER = driver;
     }
 
-    public void login(String name, String pass) {
-        Username.sendKeys(name);
-        Password.sendKeys(pass);
-        SubmitButton.click();
-    }
+    public HomePage login(String name, String pass) {
+        DRIVER.findElement(USERNAME).sendKeys(name);
+        DRIVER.findElement(PASSWORD).sendKeys(pass);
+        DRIVER.findElement(SUBMIT_BUTTON).click();
 
+        return new HomePage(DRIVER);
+    }
 }

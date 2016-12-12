@@ -2,26 +2,28 @@ package pageobjectsTask7;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class HomePage {
 
-    private WebDriver driver;
+    private final WebDriver DRIVER;
+
+    private static final By INPUT_SEARCH = By.cssSelector("#input-search");
+    private static final By OFFICEMENU = By.id("officeMenu");
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
+        this.DRIVER = driver;
     }
 
     public String getTitle() {
-        return driver.getTitle();
+        return DRIVER.getTitle();
     }
 
     public void goToOfficeTab() {
-        driver.findElement(By.id("officeMenu")).click();
+        DRIVER.findElement(OFFICEMENU).click();
     }
 
-    public WebElement inputSearch() {
-        return driver.findElement(By.cssSelector("#input-search"));
+    public boolean inputSearchDisplayed() {
+        return DRIVER.findElement(INPUT_SEARCH).isDisplayed();
     }
 
 }

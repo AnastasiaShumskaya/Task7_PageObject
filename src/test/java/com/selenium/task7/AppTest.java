@@ -13,23 +13,20 @@ import java.util.concurrent.TimeUnit;
 public class AppTest {
 
     private WebDriver driver;
-    private LoginPage rmSysPage;
-    private HomePage homePage;
 
-    private String url = "https://192.168.100.26/";
-    private String username = "AnastasiaShumskaya";
-    private String password = "1";
-
+    private static final String URL = "https://192.168.100.26/";
+    private static final String USERNAME = "AnastasiaShumskaya";
+    private static final String PASSWORD = "1";
+    private static final String TITLE = "Home";
 
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
 
         driver = new FirefoxDriver();
-        rmSysPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get(URL);
     }
 
     @AfterMethod
@@ -38,22 +35,20 @@ public class AppTest {
     }
 
     @Test
-    public void seleniumTest() throws InterruptedException {
+    public void seleniumTest() {
+        LoginPage rmSysPage = new LoginPage(driver);
+        HomePage homePage = rmSysPage.login(USERNAME, PASSWORD);
 
-        driver.get(url);
-        rmSysPage.login(username, password);
-
-        Assert.assertTrue(homePage.getTitle().contains("Home"));
+        Assert.assertTrue(homePage.getTitle().contains(TITLE), "Incorrect page!");
     }
 
     @Test
     public void testCase() {
-
-        driver.get(url);
-        rmSysPage.login(username, password);
+        LoginPage rmSysPage = new LoginPage(driver);
+        HomePage homePage = rmSysPage.login(USERNAME, PASSWORD);
         homePage.goToOfficeTab();
 
-        Assert.assertTrue(homePage.inputSearch().isDisplayed());
+        Assert.assertTrue(homePage.inputSearchDisplayed(), "Input search is not on the page!");
     }
 
 }
